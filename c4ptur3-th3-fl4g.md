@@ -1,6 +1,6 @@
 # [c4ptur3-th3-fl4g](https://tryhackme.com/room/c4ptur3th3fl4g)
 Pertanyaan 1: `c4n y0u c4p7u23 7h3 f149?`
-*** Ini disebut leet speak, di mana teks ditulis dengan ejaan yang dimodifikasi menggunakan angka.
+/ Ini disebut leet speak, di mana teks ditulis dengan ejaan yang dimodifikasi menggunakan angka./
 Hasilnya: ```can you capture the flag?```
 Pertanyaan 2:
 ```01101100 01100101 01110100 01110011 00100000 01110100 01110010 01111001 00100000 01110011 01101111 01101101 01100101 00100000 01100010 01101001 01101110 01100001 01110010 01111001 00100000 01101111 01110101 01110100 00100001```
