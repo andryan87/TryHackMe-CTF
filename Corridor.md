@@ -45,6 +45,7 @@ bash
 ```echo -n 14 | md5sum```
 ```echo -n 0 | md5sum```
 <img width="369" height="86" alt="image" src="https://github.com/user-attachments/assets/08f8bc45-d5c1-4569-b61c-57c6608ff4ff" />
+<br>
 Tidak ada apa-apa di ruangan 14, namun ditemukan sebuah flag di ruangan 0:
 bash
 ```http://10.48.147.213/cfcd208495d565ef66e7dff9f98764da```
