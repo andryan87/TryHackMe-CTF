@@ -11,6 +11,8 @@ scan the target
 <br>
 
 bash ```nmap -sS -sV 10.10.225.145```
+
+<br>
 <img width="415" height="70" alt="image" src="https://github.com/user-attachments/assets/e35af6d2-892f-45eb-adc4-e1fe65f3e2e8" />
 
 <br>
