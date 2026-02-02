@@ -60,11 +60,10 @@ Input:
 
 Response:
 
-``` Sorry, no results were found for Hii. Try again. ```
+
 
 URL:
 
-``` https://xss-game.appspot.com/level1/frame?query=Hii ```
 
 Input ditampilkan kembali tanpa melalui proses escape — sebuah indikasi jelas dari Reflected XSS.
 
