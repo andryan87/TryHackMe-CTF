@@ -274,7 +274,29 @@ Gambar yang cacat memicu eksekusi JavaScript.
 <img width="1355" height="365" alt="image" src="https://github.com/user-attachments/assets/371c71dc-6f1e-4e6d-8a0a-f984327e214e" />
 
 
-Level 3 (DOM-based XSS): Memanfaatkan manipulasi URL fragment (#) yang digunakan oleh JavaScript untuk mengubah elemen halaman.
+🧩 Level 4 — Konteks Adalah Kunci (Context Matters)
+
+Tautan: https://xss-game.appspot.com/level4
+
+Level: 4/6
+
+Tipe Kerentanan: Injeksi Konteks JavaScript `(JavaScript Context Injection)`
+
+```https://xss-game.appspot.com/level4/frame?timer=test```
+
+<img width="1363" height="272" alt="image" src="https://github.com/user-attachments/assets/eeba4a76-c8ad-4946-9779-e755883baea6" />
+
+🔎Analisis Respons (menggunakan Burp)
+
+```
+<img src="/static/loading.gif" onload="startTimer('test');" />
+<div id="message">Your timer will execute in test seconds.</div>
+```
+
+Input pengguna diinjeksikan ke dalam konteks string JavaScript. 
+
+
+
 Level 4 (Context Matters): Melewati filter dengan menyesuaikan payload berdasarkan konteks di mana input ditampilkan, sering kali menggunakan pengkodean karakter.
 Level 5 (Breaking Protocol): Mengeksploitasi parameter URL yang memengaruhi tautan navigasi, biasanya dengan protokol javascript:.
 Level 6 (Follow the Rabbit): Memuat skrip eksternal dengan memanipulasi parameter URL yang mengambil sumber data dari domain luar. 
