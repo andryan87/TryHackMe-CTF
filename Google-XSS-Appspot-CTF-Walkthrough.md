@@ -25,38 +25,57 @@ Lab Link: ``` https://xss-game.appspot.com/ ```
 Platform: Google XSS Game
 Vulnerability Class: Cross-Site Scripting (XSS)
 Panduan ini membahas enam level tantangan XSS dengan skenario yang berbeda-beda:
-  *** Level 1 — Halo, Dunia XSS*
+ 
+*** 
+Level 1 — Halo, Dunia XSS*
+  
 Apakah Anda ingin saya lanjut menerjemahkan langkah-langkah penyelesaian untuk Level 1 ini, atau Anda ingin bantuan untuk:
 Memahami konsep dasar Reflected XSS di level ini?
 Mencari tahu payload apa yang paling efektif untuk melewatinya?
 Menjelaskan mengapa form pencarian tersebut bisa rentan?
+
 Tautan: https://xss-game.appspot.com/level1
+
 Level: 1/6
+
 Tipe Kerentanan: Reflected XSS
+
 Level ini mendemonstrasikan reflected XSS di mana input pengguna langsung dimasukkan ke dalam respons tanpa melalui proses penyaringan (escaping) yang benar. Untuk mencoba level ini, 
+
 kunjungi ``` https://xss-game.appspot.com/level1```
+
 <img width="1165" height="673" alt="image" src="https://github.com/user-attachments/assets/3af83835-032f-41aa-9c09-77dbf69c7206" />
 
- Reflection Check
+Reflection Check
+ 
 Input:
 
 ``` Hii ```
+
 Response:
 
 ``` Sorry, no results were found for Hii. Try again. ```
+
 URL:
 
 ``` https://xss-game.appspot.com/level1/frame?query=Hii ```
+
 Input ditampilkan kembali tanpa melalui proses escape — sebuah indikasi jelas dari Reflected XSS.
+
 <img width="1189" height="313" alt="image" src="https://github.com/user-attachments/assets/41f711e8-2a61-4f02-b3bb-9620cff79b52" />
+
 🧪 Injeksi HTML (HTML Injection)
+
 Payload:
 
 ``` <h1>Hiii</h1> ```
+
 Payload Terakhir (Level 1)
 
 ``` <script>alert("Aditya Bhatt")</script> ```
+
 JavaScript executes successfully.
+
 <img width="1179" height="368" alt="image" src="https://github.com/user-attachments/assets/dd91d405-b540-4b2c-b092-9899e0bbdb3f" />
 ***
 Level 2 (Stored XSS): Memasukkan skrip berbahaya ke dalam basis data (seperti di fitur komentar) menggunakan tag alternatif seperti <img> dengan atribut onerror.
