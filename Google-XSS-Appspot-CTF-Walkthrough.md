@@ -35,7 +35,7 @@ Panduan ini membahas enam level tantangan XSS dengan skenario yang berbeda-beda:
  
 ***
 
-Level 1 — Halo, Dunia XSS*
+🧩Level 1 — Halo, Dunia XSS*
   
 Apakah Anda ingin saya lanjut menerjemahkan langkah-langkah penyelesaian untuk Level 1 ini, atau Anda ingin bantuan untuk:
 Memahami konsep dasar Reflected XSS di level ini?
@@ -88,7 +88,139 @@ JavaScript executes successfully.
 
 ***
 
-Level 2 (Stored XSS): Memasukkan skrip berbahaya ke dalam basis data (seperti di fitur komentar) menggunakan tag alternatif seperti <img> dengan atribut onerror.
+**🧩 Level 2 — Persistensi adalah Kunci**
+
+Tautan: ```https://xss-game.appspot.com/level2```
+
+Level: 2/6
+
+Tipe Kerentanan: Stored XSS (Penyimpanan Sisi Klien)
+
+(Stored XSS): Memasukkan skrip berbahaya ke dalam basis data (seperti di fitur komentar) menggunakan tag alternatif seperti <img> dengan atribut onerror.
+
+<img width="1362" height="682" alt="image" src="https://github.com/user-attachments/assets/f58bb5c2-5469-4fc0-bcc0-68e8a3643fd7" />
+
+**🧪 Upaya Payload Awal**
+
+Payloads tested:
+
+```test```
+
+```<script>alert("iindoSec101")</script>```
+
+Pesan ```test``` coba telah terkirim
+
+Payload ```<script>``` sepenuhnya dihapus (redacted)
+
+Tidak ada perubahan yang teramati pada tab Network
+
+Ini menunjukkan adanya pemfilteran berbasis tag, bukan sanitasi kontekstual.
+
+<img width="1364" height="689" alt="image" src="https://github.com/user-attachments/assets/56cbe908-965f-4e61-8ece-0077afe66f90" />
+
+**🔎 Tinjauan Kode Sumber JavaScript**
+
+Inspector → Debugger → Sources → level2/frame
+
+```
+octype html>
+<html>
+  <head>
+    <!-- Internal game scripts/styles, mostly boring stuff -->
+    <script src="/static/game-frame.js"></script>
+    <link rel="stylesheet" href="/static/game-frame-styles.css" />
+
+    <!-- This is our database of messages -->
+    <script src="/static/post-store.js"></script>
+  
+    <script>
+      var defaultMessage = "Welcome!<br><br>This is your <i>personal</i>"
+        + " stream. You can post anything you want here, especially "
+        + "<span style='color: #f00ba7'>madness</span>.";
+
+      var DB = new PostDB(defaultMessage);
+
+      function displayPosts() {
+        var containerEl = document.getElementById("post-container");
+        containerEl.innerHTML = "";
+
+        var posts = DB.getPosts();
+        for (var i=0; i<posts.length; i++) {
+          var html = '<table class="message"> <tr> <td valign=top> '
+            + '<img src="/static/level2_icon.png"> </td> <td valign=top '
+            + ' class="message-container"> <div class="shim"></div>';
+
+          html += '<b>You</b>';
+          html += '<span class="date">' + new Date(posts[i].date) + '</span>';
+          html += "<blockquote>" + posts[i].message + "</blockquote";
+          html += "</td></tr></table>"
+          containerEl.innerHTML += html; 
+        }
+      }
+
+      window.onload = function() { 
+        document.getElementById('clear-form').onsubmit = function() {
+          DB.clear(function() { displayPosts() });
+          return false;
+        }
+
+        document.getElementById('post-form').onsubmit = function() {
+          var message = document.getElementById('post-content').value;
+          DB.save(message, function() { displayPosts() } );
+          document.getElementById('post-content').value = "";
+          return false;
+        }
+
+        displayPosts();
+      }
+
+    </script>
+
+  </head>
+
+  <body id="level2">
+    <div id="header">
+      <img src="/static/logos/level2.png" /> 
+      <div>Chatter from across the Web.</div>
+      <form action="?" id="clear-form">
+        <input class="clear" type="submit" value="Clear all posts">
+      </form>
+    </div>
+
+    <div id="post-container"></div>
+
+    <table class="message">
+      <tr>
+        <td valign="top">
+          <img src="/static/level2_icon.png">
+        </td>
+        <td class="message-container">
+          <div class="shim"></div>
+          <form action="?" id="post-form">
+            <textarea id="post-content" name="content" rows="2" 
+              cols="50"></textarea>
+            <input class="share" type="submit" value="Share status!">
+            <input type="hidden" name="action" value="sign">
+          </form>
+        </td>
+      </tr>
+    </table>
+
+  </body>
+</html>
+```
+
+Input yang dikontrol pengguna ditampilkan melalui innerHTML. Tag script difilter, tetapi event handler tidak 🗿 
+
+<img width="1353" height="683" alt="image" src="https://github.com/user-attachments/assets/2dda54c5-61aa-442e-ab83-ea5f98871fd5" />
+
+
+💥 Payload Terakhir (Level 2)
+
+```<img src=x onerror=alert()>```
+
+Handler ```onerror``` dieksekusi — Level 2 berhasil diselesaikan.
+
 Level 3 (DOM-based XSS): Memanfaatkan manipulasi URL fragment (#) yang digunakan oleh JavaScript untuk mengubah elemen halaman.
 Level 4 (Context Matters): Melewati filter dengan menyesuaikan payload berdasarkan konteks di mana input ditampilkan, sering kali menggunakan pengkodean karakter.
 Level 5 (Breaking Protocol): Mengeksploitasi parameter URL yang memengaruhi tautan navigasi, biasanya dengan protokol javascript:.
