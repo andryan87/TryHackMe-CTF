@@ -361,13 +361,36 @@ Open Redirect terkonfirmasi:
 
 <img width="1133" height="625" alt="image" src="https://github.com/user-attachments/assets/d94d6a70-ee19-4d35-86e0-ab80bf3789d0" />
 
+**🧩 Level 6 — Ikuti Kelinci Putih (Follow the Rabbit)**
+
+Tautan: https://xss-game.appspot.com/level6
+
+Level: 6/6
+
+Tipe Kerentanan: Injeksi Skrip Dinamis (Dynamic Script Injection)
+
+<img width="1146" height="613" alt="image" src="https://github.com/user-attachments/assets/fce83cc8-b73e-489f-af6e-a8380d8dd2ba" />
+
+🔎 Tinjauan Kode Sumber (Source Code Review)
+
+```
+function includeGadget(url) {
+  if (url.match(/^https?:\/\//)) return;
+  var s = document.createElement('script');
+  s.src = url;
+  document.head.appendChild(s);
+}
+```
 
 ***
 Fokus Materi
+
 Panduan ini membahas enam level tantangan XSS dengan skenario yang berbeda-beda:
+```
 Level 1 (Reflected XSS): Eksploitasi kolom pencarian sederhana yang tidak menyaring input.
 Level 2 (Stored XSS): Memasukkan skrip berbahaya ke dalam basis data (seperti di fitur komentar) menggunakan tag alternatif seperti <img> dengan atribut onerror.
 Level 3 (DOM-based XSS): Memanfaatkan manipulasi URL fragment (#) yang digunakan oleh JavaScript untuk mengubah elemen halaman.
 Level 4 (Context Matters): Melewati filter dengan menyesuaikan payload berdasarkan konteks di mana input ditampilkan, sering kali menggunakan pengkodean karakter.
 Level 5 (Breaking Protocol): Mengeksploitasi parameter URL yang memengaruhi tautan navigasi, biasanya dengan protokol javascript:.
-Level 6 (Follow the Rabbit): Memuat skrip eksternal dengan memanipulasi parameter URL yang mengambil sumber data dari domain luar. 
+Level 6 (Follow the Rabbit): Memuat skrip eksternal dengan memanipulasi parameter URL yang mengambil sumber data dari domain luar.
+```
